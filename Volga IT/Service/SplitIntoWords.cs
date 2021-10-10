@@ -18,7 +18,7 @@ namespace Volga_IT
 
             foreach (var item in array)
             {
-                if (item.Length > 2 || item == item.ToUpper() && item != "")
+                if (item.Length > 3 || item == item.ToUpper() && item != "")
                 {
                     Word bufword = new Word { NameWord = item, cout = 1 };
                     if (words.Contains(bufword))
