@@ -10,36 +10,23 @@ namespace Volga_IT
     class SplitIntoWords
     {
         public List<Word> BreakerText(string text)
-        {
-            text = text.Replace("\n", string.Empty);
-            text = text.Replace("\r", string.Empty);
-
-            char[] Separators = { ' ', ',', '.', '!', '?', '"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t' };
+        {        
+            char[] Separators = { ' ', ',', '.', '!', '?', '"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t','\0'};
             List<Word> words = new List<Word>() { };
 
-            string name = string.Empty;
+            string[] array = text.Split(Separators);
 
-            for (int i = 0; i < text.Length; i++)
+            foreach (var item in array)
             {
-                for (int j = 0; j < Separators.Length; j++)
+                if (item.Length > 2 || item == item.ToUpper() && item != "")
                 {
-                    if (text[i] == Separators[j])
-                    {
-                        if (name.Length > 2 || name == name.ToUpper())
-                        {
-                            Word wordbuf = new Word { NameWord = name, cout = 1 };
-
-                            if (words.Contains(wordbuf))
-                                words[words.IndexOf(wordbuf)].cout++;
-                            else
-                                words.Add(wordbuf);                                           
-                        }
-                        name = string.Empty;
-                        break;
-                    }                    
+                    Word bufword = new Word { NameWord = item, cout = 1 };
+                    if (words.Contains(bufword))
+                        words[words.IndexOf(bufword)].cout++;
+                    else
+                        words.Add(bufword);
                 }
-                name += text[i];
-            }
+            }       
             return words;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 using Volga_IT.Models;
 using Volga_IT.Service;
@@ -17,16 +18,15 @@ namespace Volga_IT
         {
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-
-            HtmlParser html = new HtmlParser();
-            string text = html.Parser(openFileDialog1.FileName);           
-
-            SplitIntoWords siw = new SplitIntoWords();
-            List<Word> Result = siw.BreakerText(text);
+            
+            string text = new HtmlParser().Parser(openFileDialog1.FileName);           
+            
+            List<Word> Result = new SplitIntoWords().BreakerText(text);
 
             saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             saveFileDialog1.DefaultExt = "*.txt";
             saveFileDialog1.OverwritePrompt = true;
+
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;            
 
